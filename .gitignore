@@ -1,0 +1,5 @@
+# Игнорирование файлов и каталогов
+
+# Конфигурации PyCharm
+.idea
+/firstProject/__pycache__
