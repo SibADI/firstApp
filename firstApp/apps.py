@@ -1,7 +1,7 @@
 # Date of creation: 17.08.2016
 # Date of last modification: 17.08.2016
-# Author: Alexander ATOMIC Miller
-# Author last edited: Alexander ATOMIC Miller
+# Author:
+# Author last edited:
 # Name: apps.py
 # Description: ---
 
