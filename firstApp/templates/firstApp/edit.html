@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Редактирование пользователя</title>
+    </head>
+    <body>
+        <ul>
+            <h3>Редактирование пользователя</h3>
+            <h4>Выберите пользователя, данные которого хотите отредактировать:</h4>
+            {% for person in arrayPerson %}
+            <li><a href = "{% url 'firstApp:edit_person_id' person.id %}">{{ person.first_name }} {{ person.last_name }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

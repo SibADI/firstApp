@@ -12,15 +12,15 @@ from django.db import models
 
 # Пользователь
 class Person(models.Model):
-	firstname = models.CharField(max_length=50)
-	lastname = models.CharField(max_length=50)
-	email = models.CharField(max_length=50)
-	vk = models.EmailField(max_length=50)
-	login = models.CharField(max_length=50)
-	password = models.CharField(max_length=50)
+	first_name = models.CharField(max_length=255)
+	last_name = models.CharField(max_length=255)
+	email = models.CharField(max_length=255)
+	vk = models.EmailField(max_length=255)
+	login = models.CharField(max_length=255)
+	password = models.CharField(max_length=255)
 
 	def __str__(self):
-		return self.firstname + ' ' + self.lastname
+		return ' '.join([self.first_name, self.last_name,])
 
 # Системный журнал
 class SysJournal(models.Model):
@@ -30,7 +30,7 @@ class SysJournal(models.Model):
 
 # Задача
 class Quest(models.Model):
-	title = models.CharField(max_length=50)
+	title = models.CharField(max_length=255)
 	text = models.TextField()
 	date = models.DateTimeField()
 	status = models.IntegerField(default=0)
@@ -45,16 +45,16 @@ class RunQuest(models.Model):
 	person = models.ForeignKey(Person, null='true')
 	quest = models.ForeignKey(Quest, null='true')
 	comment = models.TextField()
-	firstdate = models.DateTimeField()
-	lastdate = models.DateTimeField()
+	first_date = models.DateTimeField()
+	last_date = models.DateTimeField()
 
 # Встреча
 class Meeting(models.Model):
-	title = models.CharField(max_length=50)
-	target = models.CharField(max_length=50)
+	title = models.CharField(max_length=255)
+	target = models.CharField(max_length=255)
 	text = models.TextField()
 	date = models.DateTimeField()
-	place = models.CharField(max_length=50)
+	place = models.CharField(max_length=255)
 
 	plans = models.ManyToManyField(Quest, through='Plan')
 	persons = models.ManyToManyField(Person, through='Journal')
