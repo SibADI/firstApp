@@ -34,11 +34,10 @@ def add_person(request):
 
 # Список пользователей для редактирования
 def edit_person(request):
-    count = Person.objects.count()
     value = Person.objects.values()
     array_person = []
-    for person in range(count):
-        array_person.insert(person, value[person])
+    for person in value:
+        array_person.append(person)
     return render(request, "firstApp/edit.html", {'arrayPerson': array_person})
 
 # Редактирование пользователя
@@ -62,11 +61,10 @@ def edit_person_id(request, person_id):
 
 # Список пользователей для удаления
 def delete_person(request):
-    count = Person.objects.count()
     value = Person.objects.values()
     array_person = []
-    for person in range(count):
-        array_person.insert(person, value[person])
+    for person in value:
+        array_person.append(person)
     return render(request, "firstApp/delete.html", {'arrayPerson': array_person})
 
 # Удаление конкретного пользователя
