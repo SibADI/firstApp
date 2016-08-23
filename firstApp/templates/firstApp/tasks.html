@@ -5,14 +5,18 @@
         <title>Задачи</title>
     </head>
     <body>
-        {% for current_task in tasks %}
         <div>
-            <i>{{ current_task.id }} {{ current_task.title }} {{ current_task.date.date }} {{ current_task.status }}</i>
-            <a href = "{% url 'firstApp:detail_task' current_task.id %}"><input type = "button" value = "Подробнее"></a>
-            <a href = "{% url 'firstApp:edit_task' current_task.id %}"><input type = "button" value = "Редактировать"></a>
-            <a href = "{% url 'firstApp:delete_task' current_task.id %}"><input type = "button" value = "Удалить"></a>
+            <div>
+                {% for task in task_list %}
+                <p><i>{{ task.id }} {{ task.title }} {{ task.date }} {{ task.status }}</i></p>
+                <a href = "{% url 'firstApp:details_about_the_task' task.id %}"><input type = "button" value = "Подробнее"></a>
+                <a href = "{% url 'firstApp:ulpoad_task' task.id %}"><input type = "button" value = "Редактировать"></a>
+                <a href = "{% url 'firstApp:delete_the_task' task.id %}"><input type = "button" value = "Удалить"></a>
+                {% endfor %}
+            </div>
+            <div>
+                <br><a href = "{% url 'firstApp:index' %}"><input type = "button" value = "Вернуться на главную страницу"></a>
+            </div>
         </div>
-        {% endfor %}
-        <a href = "{% url 'firstApp:index' %}"><input type = "button" value = "Вернуться на главную страницу"></a>
     </body>
 </html>

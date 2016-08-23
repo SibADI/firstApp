@@ -15,8 +15,10 @@ app_name = 'firstApp'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^tasks/$', views.tasks, name='tasks'),
-    url(r'^tasks/(?P<task_id>[0-9]+)/$', views.detail_task, name='detail_task'),
-    url(r'^tasks/(?P<task_id>[0-9]+)/edit/$', views.edit_task, name='edit_task'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/$', views.details_about_the_task, name='details_about_the_task'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/edit/$', views.ulpoad_task, name='ulpoad_task'),
     url(r'^tasks/(?P<task_id>[0-9]+)/edit_id/$', views.edit_task_id, name='edit_task_id'),
-    url(r'^tasks/(?P<task_id>[0-9]+)/delete$', views.delete_task, name='delete_task'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/delete$', views.delete_the_task, name='delete_the_task'),
+    url(r'^users/$', views.users, name='users'),
+    url(r'^users/(?P<user_id>[0-9]+)/$', views.details_about_the_user, name='details_about_the_user'),
 ]
