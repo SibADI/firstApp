@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Редактирование задачи</title>
+    </head>
+    <body>
+        <div>
+            <form method = "POST" action = "{% url 'firstApp:edit_task_id' task.id %}" name = "">
+                {% csrf_token %}
+                <p>ID: <input type = "text" name = "id" value = "{{ task.id }}"></p>
+                <p>Название задачи: <input type = "text" name = "title" value = "{{ task.title }}" required></p>
+                <p>Описание задачи: <input type = "text" name = "text" value = "{{ task.text }}"></p>
+                <p>Текущий статус: <input type = "text" name = "status" value = "{{ task.status }}"></p>
+                <p>Исполнители: <input type = "text" name = "persons" value = "{{ task.id }}"></p>
+                <input type = "reset" name = "clear" value = "Очистить">
+                <input type = "submit" name = "edit" value = "Сохранить изменения">
+            </form>
+        </div>
+        <a href = "{% url 'firstApp:index' %}"><input type = "button" value = "Вернуться на главную страницу"></a>
+        <a href = "{% url 'firstApp:tasks' %}"><input type = "button" value = "Вернуться к списку задач"></a>
+    </body>
+</html>

@@ -14,4 +14,9 @@ from . import views
 app_name = 'firstApp'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^tasks/$', views.tasks, name='tasks'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/$', views.detail_task, name='detail_task'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/edit/$', views.edit_task, name='edit_task'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/edit_id/$', views.edit_task_id, name='edit_task_id'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/delete$', views.delete_task, name='delete_task'),
 ]
