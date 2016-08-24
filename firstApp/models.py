@@ -33,8 +33,7 @@ class Quest(models.Model):
 	text = models.TextField()
 	date = models.DateTimeField()
 	status = models.IntegerField(default=0)
-
-	models.ManyToManyField(Person, through='RunQuest')
+	person = models.ManyToManyField(Person, through='RunQuest')
 
 	def __str__(self):
 		return self.title
@@ -54,7 +53,6 @@ class Meeting(models.Model):
 	text = models.TextField()
 	date = models.DateTimeField()
 	place = models.CharField(max_length=255)
-
 	plans = models.ManyToManyField(Quest, through='Plan')
 	persons = models.ManyToManyField(Person, through='Journal')
 
