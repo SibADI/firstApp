@@ -3,7 +3,7 @@
 {% block Content %}
 
         <title>Редактирование задачи</title>
-
+        <!--    .container { border:2px solid #ccc; width:300px; height: 100px; overflow-y: scroll; } -->
         <div>
             <form class="editform" method = "POST" action = "{% url 'firstApp:edit_task_id' task.id %}" name = "">
                 {% csrf_token %}
