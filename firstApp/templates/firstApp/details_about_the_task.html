@@ -6,14 +6,13 @@
     </head>
     <body>
         <div>
-            <p><i>ID:</i> <b>{{ task.id }}</b></p>
             <p><i>Название задачи:</i> <b>{{ task.title }}</b></p>
             <p><i>Описание задачи:</i> <b>{{ task.text }}</b></p>
             <p><i>Дата создания задачи:</i> <b>{{ task.date.date }}</b></p>
             <p><i>Текущий статус:</i> <b>{{ task.status }}</b></p>
             <p><i>Исполнители:</i><br>
-                {% for user in users %}
-                <p><a href = "{% url 'firstApp:details_about_the_user' user.user_id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a></p>
+                {% for user in users_task %}
+                <p><a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a></p>
                 {% endfor %}
             </p>
         </div>

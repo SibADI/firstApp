@@ -3,19 +3,43 @@
     <head>
         <meta charset="utf-8" />
         <title>Редактирование задачи</title>
+        <style type="text/css">
+            .container
+            {
+                border:2px solid #ccc;
+                width:300px;
+                height: 100px;
+                overflow-y: scroll;
+            }
+        </style>
     </head>
     <body>
         <div>
             <div>
                 <form method = "POST" action = "{% url 'firstApp:edit_task_id' task.id %}" name = "">
                     {% csrf_token %}
-                    <p><i>ID:</i> <input type = "text" name = "id" value = "{{ task.id }}"></p>
                     <p><i>Название задачи:</i> <input type = "text" name = "title" value = "{{ task.title }}"></p>
                     <p><i>Описание задачи:</i> <input type = "text" name = "text" value = "{{ task.text }}"></p>
                     <p><i>Дата создания задачи:</i> <input type = "text" name = "status" value = "{{ task.date }}"></p>
                     <p><i>Текущий статус:</i> <input type = "text" name = "persons" value = "{{ task.id }}"></p>
-                    <p><i>Исполнители:</i> <input type = "text" name = "persons" value = "{{ task.id }}"></p>
-                    <input type = "reset" name = "clear" value = "Очистить">
+                    <p><i>Исполнители:</i><br></p>
+                    <div class="container">
+                    {% for user in users_task %}
+                        <p>
+                            <input type = "checkbox" name = "user_{{ user.id }}" value = "{{ user.id }}" checked>
+                            <a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a>
+                        </p>
+                    {% endfor %}
+                    {% for user in users %}
+                        <p>
+                            <input type = "checkbox" name = "user_{{ user.id }}" value = "{{ user.id }}">
+                            <a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a>
+                        </p>
+                    {% endfor %}
+                    </div>
+                    <br>
+                    <input type = "button" name = "clear" value = "Очистить">
+                    <input type = "reset" name = "recoil" value = "Откатить изменения">
                     <input type = "submit" name = "edit" value = "Сохранить изменения">
                 </form>
             </div>
