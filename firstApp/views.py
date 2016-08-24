@@ -86,7 +86,7 @@ def delete_the_task(HttpRequest, task_id):
 
 def users(HttpRequest):
     """Отобразить список пользователей"""
-    user_list = get_list(Person)
+    user_list = get_list(Person, "id", "first_name", "last_name")
     return render(HttpRequest, "firstApp/users.html", {"user_list": user_list})
 
 def details_about_the_user(HttpRequest, user_id):
