@@ -2,7 +2,6 @@
 
 {% block Content %}
         <title>Подробнее</title>
-
         <table class="table tab_detail">
         <tr class="detail_tr">
             <td>Название задачи:</td>
@@ -24,7 +23,7 @@
             <td>Исполнители:</td>
             <td>
                 {% for user in users_task %}
-                    <p><a href = "{% url 'firstApp:details_about_the_user' user.user_id %}"><b></b></a>{{ user.first_name }} {{ user.last_name }}</p>
+                    <p><a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a></p>
                 {% endfor %}
             </td>
         </tr>

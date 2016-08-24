@@ -1,9 +1,6 @@
 {% extends 'firstApp/base.html' %}
 
-
 {% block Content %}
-
-
 
         <title>Редактирование задачи</title>
 
@@ -11,10 +8,6 @@
             <form class="editform" method = "POST" action = "{% url 'firstApp:edit_task_id' task.id %}" name = "">
                 {% csrf_token %}
                 <table class="table tab_task">
-                    <tr>
-                        <td class="t_edit1">ID:</td>
-                        <td><input class="t_edit2" type = "text" name = "id" value = "{{ task.id }}"></td>
-                    </tr>
                     <tr>
                         <td class="t_edit1">Название задачи:</td>
                         <td><input class="t_edit2" type = "text" name = "title" value = "{{ task.title }}" required></td>
@@ -24,12 +17,32 @@
                         <td><textarea class="t_edit22" typeof="text" name = "text">{{ task.text }}</textarea></td>
                     </tr>
                     <tr>
+                        <td class="t_edit1">Дата создания задачи:</td>
+                        <td><input class="t_edit2" type = "text" name = "date" value = "{{ task.date }}" required></td>
+                    </tr>
+                    <tr>
                         <td class="t_edit1">Текущий статус:</td>
                         <td><input class="t_edit2" type = "text" name = "status" value = "{{ task.status }}"></td>
                     </tr>
                     <tr>
                         <td class="t_edit1">Исполнители:</td>
-                        <td><textarea class="t_edit222" typeof = "text" name = "persons">{{ task.id }}</textarea></td>
+                        <td>
+                            <div class="container">
+                                {% for user in users_task %}
+                                <p>
+                                <input type = "checkbox" name = "user_{{ user.id }}" value = "{{ user.id }}" checked>
+                                <a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a>
+                                </p>
+                                {% endfor %}
+                                {% for user in users %}
+                                <p>
+                                <input type = "checkbox" name = "user_{{ user.id }}" value = "{{ user.id }}">
+                                <a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a>
+                                </p>
+                                {% endfor %}
+                            </div>
+                            <br>
+                        </td>
                     </tr>
                     <tr>
                         <td class="t_edit1"></td>
