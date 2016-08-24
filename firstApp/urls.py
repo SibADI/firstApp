@@ -9,7 +9,6 @@
 from django.conf.urls import url
 from . import views
 
-
 # Create your models here
 # Setting URL for this application
 app_name = 'firstApp'

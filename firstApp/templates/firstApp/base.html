@@ -1,40 +1,29 @@
-{% load static %}
-
 <!DOCTYPE html>
 
+{% load static %}
+
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-
-    <title>SSC {% block title %}{% endblock %}</title>
-
-    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/bootstrap.css' %} " />
-    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/style.css' %} " />
-    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/task.css' %} " />
-    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/edit.css' %} " />
-    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/detail.css' %} " />
-
-
-
-</head>
-
-<body class="body">
-
-
-    <header class="header">
-
-        <div class="wrapper">
-
-            <div class="container_h">
-
+    <head>
+        <meta charset="UTF-8">
+        <title>SSC {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/bootstrap.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/style.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/task.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/edit.css' %} " />
+        <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/detail.css' %} " />
+    </head>
+    <body class="body">
+        <header class="header">
+            <div class="wrapper">
+                <div class="container_h">
                     <div id="div_h" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <img class="logo" src="{% static 'firstApp/img/logo.png' %}">
                     </div>
                     <div id="div_h" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <h1 class="th1"><p>Студенческий научный кружок</p></h1>
-                     <h2 class="th2"> <p>ФГБОУ ВО</p>
-                         <p>"СИБИРСКАЯ ГОСУДАРСТВЕННАЯ АВТОМОБИЛЬНО-ДОРОЖНАЯ</p>
-                         <p>АКАДЕМИЯ (СИБАДИ)"</p>
+                        <h1 class="th1"><p>Студенческий научный кружок</p></h1>
+                        <h2 class="th2"><p>ФГБОУ ВО</p>
+                            <p>"СИБИРСКАЯ ГОСУДАРСТВЕННАЯ АВТОМОБИЛЬНО-ДОРОЖНАЯ</p>
+                            <p>АКАДЕМИЯ (СИБАДИ)"</p>
                          </h2>
                     </div>
                     <!--
@@ -56,42 +45,34 @@
                             </script>
                         </h1>
                     </div>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="wrapper_nav">
-            <div class="container_nav">
-                <div id="navigation">
-                    <ul class="nav navbar-nav">
-                        <li><a href="{% url 'firstApp:index' %}">Главная</a></li>
-                        <li><a href="#">О Нас</a></li>
-                        <li><a href="{% url 'firstApp:tasks' %}">Задачи</a></li>
-
-                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="line"></div>
-    </header><!-- .header-->
-
-    <div class="middle">
-        <div class="wrapper">
-            <div class="container">
-                <main class="content">
-
-                        {% block Content %}{% endblock %}
-
-                </main><!-- .content -->
-            </div><!-- .container-->
-        </div>
-    </div><!-- .middle-->
-
-
+            <div class="line"></div>
+                <div class="wrapper_nav">
+                    <div class="container_nav">
+                        <div id="navigation">
+                            <ul class="nav navbar-nav">
+                                <li><a href="{% url 'firstApp:index' %}">Главная</a></li>
+                                <li><a href="#">О Нас</a></li>
+                                <li><a href="{% url 'firstApp:tasks' %}">Задачи</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <div class="line"></div>
+        </header>
+            <div class="middle">
+                <div class="wrapper">
+                    <div class="container">
+                        <main class="content">
+                            {% block Content %}{% endblock %}
+                        </main>
+                    </div>
+                </div>
+            </div>
         <footer class="footer">
             <div class="line"></div>
-            <div class="wrapper">
-
-            </div>
-        </footer><!-- .footer -->
-</body>
+            <div class="wrapper"></div>
+        </footer>
+    </body>
 </html>
