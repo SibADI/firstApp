@@ -14,10 +14,10 @@ from . import views
 # Setting URL for this application
 app_name = 'firstApp'
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+    url(r'^$', views.index, name='index'),
     url(r'^tasks/$', views.tasks, name='tasks'),
     url(r'^tasks/(?P<task_id>[0-9]+)/$', views.details_about_the_task, name='details_about_the_task'),
-    url(r'^tasks/(?P<task_id>[0-9]+)/edit/$', views.ulpoad_task, name='ulpoad_task'),
+    url(r'^tasks/(?P<task_id>[0-9]+)/edit/$', views.upload_task, name='upload_task'),
     url(r'^tasks/(?P<task_id>[0-9]+)/edit_id/$', views.edit_task_id, name='edit_task_id'),
     url(r'^tasks/(?P<task_id>[0-9]+)/delete$', views.delete_the_task, name='delete_the_task'),
     url(r'^users/$', views.users, name='users'),

@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <title>SSC {% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/bootstrap.css' %} " />
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/style.css' %} " />
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/task.css' %} " />
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/edit.css' %} " />
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/detail.css' %} " />
+
+
+
+</head>
+
+<body class="body">
+
+
+    <header class="header">
+
+        <div class="wrapper">
+
+            <div class="container_h">
+
+                    <div id="div_h" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <img class="logo" src="{% static 'firstApp/img/logo.png' %}">
+                    </div>
+                    <div id="div_h" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <h1 class="th1"><p>Студенческий научный кружок</p></h1>
+                     <h2 class="th2"> <p>ФГБОУ ВО</p>
+                         <p>"СИБИРСКАЯ ГОСУДАРСТВЕННАЯ АВТОМОБИЛЬНО-ДОРОЖНАЯ</p>
+                         <p>АКАДЕМИЯ (СИБАДИ)"</p>
+                         </h2>
+                    </div>
+                    <!--
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <img class="logo" src="{% static 'firstApp/img/logo1.png' %}">
+                    </div>
+                    -->
+                    <div id="div_h" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <h1 class="hj">
+                            <script type="text/javascript">// <![CDATA[
+                                day = new Date(); hour = day.getHours(); if (hour>=5 && hour<12) greeting = "Доброе утро"; else { if (hour>=12 && hour<18) greeting = "Добрый день"; else { if (hour>=18 && hour<24) greeting = "Добрый вечер"; else { if (hour>=0 && hour<5) greeting = "Доброй ночи"; } } } document.write(greeting);// ]]&gt;// ]]&gt;// ]]&gt;// ]]&gt;// ]]&gt;// ]]>
+                            </script>
+                                !  Сегодня
+                            <script type="text/javascript">// <![CDATA[// <![CDATA[
+                                    var d = new Date();
+                                    var day=new Array("Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота");
+                                    var month=new Array("января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря");
+                                    document.write(day[d.getDay()]+" " +d.getDate()+ " " + month[d.getMonth()]+ " " + d.getFullYear() + " г.");// ]]&gt;// ]]&gt;// ]]&gt;// ]]&gt;// ]]&gt;// ]]>
+                            </script>
+                        </h1>
+                    </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="wrapper_nav">
+            <div class="container_nav">
+                <div id="navigation">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'firstApp:index' %}">Главная</a></li>
+                        <li><a href="#">О Нас</a></li>
+                        <li><a href="{% url 'firstApp:tasks' %}">Задачи</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+    </header><!-- .header-->
+
+    <div class="middle">
+        <div class="wrapper">
+            <div class="container">
+                <main class="content">
+
+                        {% block Content %}{% endblock %}
+
+                </main><!-- .content -->
+            </div><!-- .container-->
+        </div>
+    </div><!-- .middle-->
+
+
+        <footer class="footer">
+            <div class="line"></div>
+            <div class="wrapper">
+
+            </div>
+        </footer><!-- .footer -->
+</body>
+</html>

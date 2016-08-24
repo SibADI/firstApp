@@ -1,23 +1,33 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
+{% extends 'firstApp/base.html' %}
+
+{% block Content %}
         <title>Подробнее</title>
-    </head>
-    <body>
-        <div>
-            <p><i>ID:</i> <b>{{ task.id }}</b></p>
-            <p><i>Название задачи:</i> <b>{{ task.title }}</b></p>
-            <p><i>Описание задачи:</i> <b>{{ task.text }}</b></p>
-            <p><i>Дата создания задачи:</i> <b>{{ task.date.date }}</b></p>
-            <p><i>Текущий статус:</i> <b>{{ task.status }}</b></p>
-            <p><i>Исполнители:</i><br>
-                {% for user in users %}
-                <p><a href = "{% url 'firstApp:details_about_the_user' user.user_id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a></p>
+
+        <table class="table tab_detail">
+        <tr class="detail_tr">
+            <td>Название задачи:</td>
+            <td>{{ task.title }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Описание задачи:</td>
+            <td>{{ task.text }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Дата создания задачи:</td>
+            <td>{{ task.date.date }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Текущий статус:</td>
+            <td>{{ task.status }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Исполнители:</td>
+            <td>
+                {% for user in users_task %}
+                    <p><a href = "{% url 'firstApp:details_about_the_user' user.user_id %}"><b></b></a>{{ user.first_name }} {{ user.last_name }}</p>
                 {% endfor %}
-            </p>
-        </div>
-        <a href = "{% url 'firstApp:index' %}"><input type = "button" value = "Вернуться на главную страницу"></a>
-        <a href = "{% url 'firstApp:tasks' %}"><input type = "button" value = "Вернуться к списку задач"></a>
-    </body>
-</html>
+            </td>
+        </tr>
+        </table>
+
+{% endblock %}
