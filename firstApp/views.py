@@ -21,7 +21,6 @@ def get_list(model):
         records.append(current_record)
     return records
 
-# Основная логика
 def index(HttpRequest):
     """Отобразить стартовую страницу"""
     return render(HttpRequest, "firstApp/index.html")
@@ -47,7 +46,7 @@ def details_about_the_task(HttpRequest, task_id):
             })
     return render(HttpRequest, "firstApp/details_about_the_task.html", {'task': task, "users_task": users_task})
 
-def ulpoad_task(HttpRequest, task_id):
+def upload_task(HttpRequest, task_id):
     """Загрузить данные в форму для указанной задачи"""
     task = Quest.objects.get(pk=task_id)
     users_list = get_list(Person)
@@ -68,7 +67,7 @@ def ulpoad_task(HttpRequest, task_id):
                 continue
             continue
     users = [x for x in users_list if x not in users_temp]
-    return render(HttpRequest, "firstApp/ulpoad_task.html", {'task': task, "users": users, "users_task": users_task})
+    return render(HttpRequest, "firstApp/upload_task.html", {'task': task, "users": users, "users_task": users_task})
 
 def edit_task_id(HttpRequest, task_id):
     """Обновить данные в БД для указанной задачи"""
@@ -79,13 +78,13 @@ def edit_task_id(HttpRequest, task_id):
             text=HttpRequest.POST["text"],
             status=HttpRequest.POST["status"]
         )
-    return HttpResponseRedirect("/firstApp/tasks");
+    return HttpResponseRedirect("/firstApp/tasks")
 
 def delete_the_task(HttpRequest, task_id):
     """Удалить указанную задачу"""
     task = Quest.objects.get(pk=task_id)
     task.delete()
-    return HttpResponseRedirect("/firstApp/tasks");
+    return HttpResponseRedirect("/firstApp/tasks")
 
 def users(HttpRequest):
     """Отобразить список пользователей"""
@@ -108,4 +107,4 @@ def delete_user(HttpRequest, task_id, user_id):
         return HttpResponseNotFound("Задача с указанным id = " + task_id + " не найдена!")
     user = RunQuest.objects.get(quest_id=task_id, person_id=user_id)
     user.delete()
-    return render(HttpRequest, "firstApp/ulpoad_task.html")
+    return render(HttpRequest, "firstApp/upload_task.html")
