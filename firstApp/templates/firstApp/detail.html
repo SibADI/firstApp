@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
+{% extends 'firstApp/index.html' %}
+
+{% block Content %}
         <title>Подробнее</title>
-    </head>
-    <body>
-        <div>
-            <p>ID: {{ task.id }}</p>
-            <p>Название задачи: {{ task.title }}</p>
-            <p>Описание задачи: {{ task.text }}</p>
-            <p>Дата создания задачи: {{ task.date.date }}</p>
-            <p>Текущий статус: {{ task.status }}</p>
-            <p>Исполнители: </p>
-        </div>
-        <a href = "{% url 'firstApp:index' %}"><input type = "button" value = "Вернуться на главную страницу"></a>
-        <a href = "{% url 'firstApp:tasks' %}"><input type = "button" value = "Вернуться к списку задач"></a>
-    </body>
-</html>
+
+        <table class="table tab_detail">
+        <tr class="detail_tr">
+            <td>Название задачи:</td>
+            <td>{{ task.title }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Описание задачи:</td>
+            <td>{{ task.text }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Дата создания задачи:</td>
+            <td>{{ task.date.date }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Текущий статус:</td>
+            <td>{{ task.status }}</td>
+        </tr>
+         <tr class="detail_tr">
+            <td>Исполнители:</td>
+            <td></td>
+        </tr>
+        </table>
+
+{% endblock %}

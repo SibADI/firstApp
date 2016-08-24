@@ -6,6 +6,8 @@
 # Description: ---
 
 # import lib
+from .models import *
+from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
@@ -22,9 +24,10 @@ def list(model):
     return records
 
 # Основная логика
-def index(request):
+def home(request):
     """Стартовая страница приложения"""
-    return render(request, "firstApp/index.html")
+    return render(request, 'firstApp/home.html')
+
 
 def tasks(request):
     """Отображение списка задач"""

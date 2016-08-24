@@ -9,11 +9,12 @@
 from django.conf.urls import url
 from . import views
 
+
 # Create your models here
 # Setting URL for this application
 app_name = 'firstApp'
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.home, name='home'),
     url(r'^tasks/$', views.tasks, name='tasks'),
     url(r'^tasks/(?P<task_id>[0-9]+)/$', views.detail_task, name='detail_task'),
     url(r'^tasks/(?P<task_id>[0-9]+)/edit/$', views.edit_task, name='edit_task'),
