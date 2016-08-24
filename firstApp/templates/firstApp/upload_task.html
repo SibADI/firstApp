@@ -33,7 +33,7 @@
                                 <a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a>
                                 </p>
                                 {% endfor %}
-                                {% for user in users %}
+                                {% for user in users_not_task %}
                                 <p>
                                 <input type = "checkbox" name = "user_{{ user.id }}" value = "{{ user.id }}">
                                 <a href = "{% url 'firstApp:details_about_the_user' user.id %}"><b>{{ user.first_name }} {{ user.last_name }}</b></a>
