@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Задачи</title>
+    </head>
+    <body>
+        <div>
+            <div>
+                {% for user in user_list %}
+                <p><i>{{ user.first_name }} {{ user.last_name }}</i></p>
+                <a href = "{% url 'firstApp:details_about_the_user' user.id %}"><input type = "button" value = "Подробнее"></a>
+                {% endfor %}
+            </div>
+            <div>
+                <br><a href = "{% url 'firstApp:index' %}"><input type = "button" value = "Вернуться на главную страницу"></a>
+            </div>
+        </div>
+    </body>
+</html>

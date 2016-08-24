@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'firstApp/index.html' %}
 
 {% block Content %}
@@ -38,3 +39,27 @@
 
 {% endblock %}
 
+=======
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Задачи</title>
+    </head>
+    <body>
+        <div>
+            <div>
+                {% for task in task_list %}
+                <p><i>{{ task.id }} {{ task.title }} {{ task.date }} {{ task.status }}</i></p>
+                <a href = "{% url 'firstApp:details_about_the_task' task.id %}"><input type = "button" value = "Подробнее"></a>
+                <a href = "{% url 'firstApp:ulpoad_task' task.id %}"><input type = "button" value = "Редактировать"></a>
+                <a href = "{% url 'firstApp:delete_the_task' task.id %}"><input type = "button" value = "Удалить"></a>
+                {% endfor %}
+            </div>
+            <div>
+                <br><a href = "{% url 'firstApp:index' %}"><input type = "button" value = "Вернуться на главную страницу"></a>
+            </div>
+        </div>
+    </body>
+</html>
+>>>>>>> 75464b3c28cfa0a9bb6632bfa941bcca607e4f02
