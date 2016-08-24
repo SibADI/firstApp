@@ -1,0 +1,46 @@
+{% extends 'firstApp/base.html' %}
+
+
+{% block Content %}
+
+
+
+        <title>Редактирование задачи</title>
+
+        <div>
+            <form class="editform" method = "POST" action = "{% url 'firstApp:edit_task_id' task.id %}" name = "">
+                {% csrf_token %}
+                <table class="table tab_task">
+                    <tr>
+                        <td class="t_edit1">ID:</td>
+                        <td><input class="t_edit2" type = "text" name = "id" value = "{{ task.id }}"></td>
+                    </tr>
+                    <tr>
+                        <td class="t_edit1">Название задачи:</td>
+                        <td><input class="t_edit2" type = "text" name = "title" value = "{{ task.title }}" required></td>
+                    </tr>
+                    <tr>
+                        <td class="t_edit1">Описание задачи:</td>
+                        <td><textarea class="t_edit22" typeof="text" name = "text">{{ task.text }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="t_edit1">Текущий статус:</td>
+                        <td><input class="t_edit2" type = "text" name = "status" value = "{{ task.status }}"></td>
+                    </tr>
+                    <tr>
+                        <td class="t_edit1">Исполнители:</td>
+                        <td><textarea class="t_edit222" typeof = "text" name = "persons">{{ task.id }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="t_edit1"></td>
+                        <td>
+                            <input class="but1" type = "reset" name = "clear" value = "Откатить изменения">
+                            <input class="but2" type = "submit" name = "edit" value = "Сохранить изменения">
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+
+{% endblock %}

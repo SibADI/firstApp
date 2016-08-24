@@ -21,7 +21,6 @@ def get_list(model):
         records.append(current_record)
     return records
 
-# Основная логика
 def index(HttpRequest):
     """Отобразить стартовую страницу"""
     return render(HttpRequest, "firstApp/index.html")
@@ -45,12 +44,12 @@ def details_about_the_task(HttpRequest, task_id):
                 "first_name": user.person.first_name,
                 "last_name": user.person.last_name
             })
-    return render(HttpRequest, "firstApp/details_about_the_task.html", {'task': task, "users": user_list_from_task})
+    return render(HttpRequest, "firstApp/details_about_the_task.html", {'task': task, "users_task": user_list_from_task})
 
-def ulpoad_task(HttpRequest, task_id):
+def upload_task(HttpRequest, task_id):
     """Загрузить данные в форму для указанной задачи"""
     task = Quest.objects.get(pk=task_id)
-    return render(HttpRequest, "firstApp/ulpoad_task.html", {'task': task})
+    return render(HttpRequest, "firstApp/upload_task.html", {'task': task})
 
 def edit_task_id(HttpRequest, task_id):
     """Обновить данные в БД для указанной задачи"""
@@ -61,13 +60,13 @@ def edit_task_id(HttpRequest, task_id):
             text=HttpRequest.POST["text"],
             status=HttpRequest.POST["status"]
         )
-    return HttpResponseRedirect("/firstApp/tasks");
+    return HttpResponseRedirect("/firstApp/tasks")
 
 def delete_the_task(HttpRequest, task_id):
     """Удалить указанную задачу"""
     task = Quest.objects.get(pk=task_id)
     task.delete()
-    return HttpResponseRedirect("/firstApp/tasks");
+    return HttpResponseRedirect("/firstApp/tasks")
 
 def users(HttpRequest):
     """Отобразить список пользователей"""
