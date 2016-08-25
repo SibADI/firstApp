@@ -13,9 +13,9 @@ from .models import Quest, RunQuest, Person
 
 # Create your views here
 # Вспомогательные функции
-def get_list(model):
+def get_list(model, *field):
     """Загрузить список записей из БД"""
-    records_from_db = model.objects.values()
+    records_from_db = model.objects.values(*field)
     records = []
     for current_record in records_from_db:
         records.append(current_record)
@@ -28,7 +28,7 @@ def index(HttpRequest):
 def tasks(HttpRequest):
     """Отобразить список задач"""
     task_list = get_list(Quest)
-    return render(HttpRequest, "firstApp/tasks.html", {'task_list': task_list})
+    return render(HttpRequest, "firstApp/tasks.html", {"task_list": task_list})
 
 def details_about_the_task(HttpRequest, task_id):
     """Отобразить подробную информацию о задачи"""
@@ -44,15 +44,14 @@ def details_about_the_task(HttpRequest, task_id):
                 "first_name": user.person.first_name,
                 "last_name": user.person.last_name
             })
-    return render(HttpRequest, "firstApp/details_about_the_task.html", {'task': task, "users_task": users_task})
+    return render(HttpRequest, "firstApp/details_about_the_task.html", {"task": task, "users_task": users_task})
 
 def upload_task(HttpRequest, task_id):
     """Загрузить данные в форму для указанной задачи"""
     task = Quest.objects.get(pk=task_id)
-    users_list = get_list(Person)
+    users_list = get_list(Person, "id", "first_name", "last_name")
     users_task = []
-    users_temp = []
-    users = []
+    users_not_task = []
     for user in RunQuest.objects.filter(quest_id=task.id):
         users_task.append\
             ({
@@ -60,14 +59,13 @@ def upload_task(HttpRequest, task_id):
                 "first_name": user.person.first_name,
                 "last_name": user.person.last_name
             })
-    for user in users_list:
-        for user_task in users_task:
-            if (user["id"] == user_task["id"]):
-                users_temp.append(user)
-                continue
-            continue
-    users = [x for x in users_list if x not in users_temp]
-    return render(HttpRequest, "firstApp/upload_task.html", {'task': task, "users": users, "users_task": users_task})
+    users_not_task = [x for x in users_list if x not in users_task]
+    return render(HttpRequest, "firstApp/upload_task.html",
+                  {
+                      "task": task,
+                      "users_not_task": users_not_task,
+                      "users_task": users_task
+                  })
 
 def edit_task_id(HttpRequest, task_id):
     """Обновить данные в БД для указанной задачи"""
@@ -88,8 +86,8 @@ def delete_the_task(HttpRequest, task_id):
 
 def users(HttpRequest):
     """Отобразить список пользователей"""
-    user_list = get_list(Person)
-    return render(HttpRequest, "firstApp/users.html", {'user_list': user_list})
+    user_list = get_list(Person, "id", "first_name", "last_name")
+    return render(HttpRequest, "firstApp/users.html", {"user_list": user_list})
 
 def details_about_the_user(HttpRequest, user_id):
     """Отобразить подробную информацию о пользователе"""
@@ -97,7 +95,7 @@ def details_about_the_user(HttpRequest, user_id):
         user = Person.objects.get(pk=user_id)
     except Quest.DoesNotExist:
         return HttpResponseNotFound("Пользователь с указанным id = " + user_id + " не найден!")
-    return render(HttpRequest, "firstApp/details_about_the_user.html", {'user': user})
+    return render(HttpRequest, "firstApp/details_about_the_user.html", {"user": user})
 
 def delete_user(HttpRequest, task_id, user_id):
     """Удалить пользователя из задачи"""

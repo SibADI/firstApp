@@ -1,23 +1,16 @@
 {% extends 'firstApp/base.html' %}
 
 {% block Content %}
-
     <table class="table tasktable_h">
-
        <tr>
             <td class="t_id">ID</td>
             <td class="t_title">Задача</td>
             <td class="t_date">Дата</td>
             <td class="t_status">Статус</td>
        </tr>
-
-
     </table>
-
     {% for current_task in task_list %}
-
         <table class="table tasktable">
-
             <tr>
                 <td class="t_id">{{ current_task.id }}</td>
                 <td class="t_title">
@@ -31,9 +24,6 @@
                 <td class="t_date">{{ current_task.date.date }}</td>
                 <td class="t_status">{{ current_task.status }}</td>
             </tr>
-
         </table>
-
         {% endfor %}
-
 {% endblock %}
