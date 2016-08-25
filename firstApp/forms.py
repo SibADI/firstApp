@@ -66,7 +66,7 @@ class QuestForm(forms.Form):
             widget=forms.Textarea,
             label="Описание задачи:",
             max_length=255,
-            required=True
+            required=False
         )
     date = forms.DateField\
         (
@@ -82,5 +82,6 @@ class QuestForm(forms.Form):
         )
     person = forms.ModelMultipleChoiceField\
         (
-            queryset=Person.objects.all()
+            queryset=Person.objects.all(),
+            required = False
         )
