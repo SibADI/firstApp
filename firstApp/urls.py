@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^tasks/(?P<task_id>[0-9]+)/delete$', views.delete_the_task, name='delete_the_task'),
     url(r'^users/$', views.users, name='users'),
     url(r'^users/(?P<user_id>[0-9]+)/$', views.details_about_the_user, name='details_about_the_user'),
+    url(r'^meetings/$', views.meetings, name='meetings'),
+    url(r'^meetings/(?P<meeting_id>[0-9]+)/$', views.meeting_info, name='meeting_info'),
 ]

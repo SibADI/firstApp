@@ -53,8 +53,8 @@ class Meeting(models.Model):
 	text = models.TextField()
 	date = models.DateTimeField()
 	place = models.CharField(max_length=255)
-	plans = models.ManyToManyField(Quest, through='Plan')
-	persons = models.ManyToManyField(Person, through='Journal')
+	quest = models.ManyToManyField(Quest, through='Plan')
+	person = models.ManyToManyField(Person, through='Journal')
 
 	def __str__(self):
 		return self.title

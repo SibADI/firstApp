@@ -9,7 +9,7 @@
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
-from .models import Quest, RunQuest, Person
+from .models import *
 
 # Create your views here
 # Вспомогательные функции
@@ -106,3 +106,17 @@ def delete_user(HttpRequest, task_id, user_id):
     user = RunQuest.objects.get(quest_id=task_id, person_id=user_id)
     user.delete()
     return render(HttpRequest, "firstApp/upload_task.html")
+
+
+def meetings(HttpRequest):
+    m = get_list(Meeting, "id", "date")
+    args = {}
+    args['meetings'] = m
+    return render(HttpRequest, "firstApp/meetings.html", args)
+
+def meeting_info(HttpRequest, meeting_id):
+    m = Meeting.objects.get(id=meeting_id)
+    args = {}
+    args['quest'] = m.quest.values()
+    args['person'] = m.person.values()
+    return render(HttpRequest, "firstApp/meeting_info.html", args)   
