@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование задачи</title>
+</head>
+<body>
+    <form method="post" action="{% url 'firstApp:edit_task' task_id %}">
+        {% csrf_token %}
+        {{ task }}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

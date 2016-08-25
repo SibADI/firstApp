@@ -1,6 +1,13 @@
-{% extends 'firstApp/base.html' %}
-
-{% block Content %}
-    <h1>Главная страница</h1>
-        <div class="container"></div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+    <div>
+        <a href="{% url 'firstApp:users' %}"><input type="button" value="Пользователи"></a>
+        <a href="{% url 'firstApp:tasks' %}"><input type="button" value="Задачи"></a>
+    </div>
+</body>
+</html>

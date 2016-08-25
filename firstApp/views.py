@@ -6,16 +6,17 @@
 # Description: ---
 
 # import lib
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseNotFound
-from django.shortcuts import render
-from .models import Quest, RunQuest, Person
+from .forms import *
+from .models import *
+from django.http import *
+from django.shortcuts import *
+from datetime import date
 
 # Create your views here
 # Вспомогательные функции
-def get_list(model, *field):
+def get_values(model, *args):
     """Загрузить список записей из БД"""
-    records_from_db = model.objects.values(*field)
+    records_from_db = model.objects.values(*args)
     records = []
     for current_record in records_from_db:
         records.append(current_record)
@@ -25,84 +26,145 @@ def index(HttpRequest):
     """Отобразить стартовую страницу"""
     return render(HttpRequest, "firstApp/index.html")
 
-def tasks(HttpRequest):
-    """Отобразить список задач"""
-    task_list = get_list(Quest)
-    return render(HttpRequest, "firstApp/tasks.html", {"task_list": task_list})
-
-def details_about_the_task(HttpRequest, task_id):
-    """Отобразить подробную информацию о задачи"""
+# Баги:
+# - Рефакторинг кода
+def users(HttpRequest):
+    """Отобразить список всех пользователей"""
     try:
-        task = Quest.objects.get(pk=task_id)
-    except Quest.DoesNotExist:
-        return HttpResponseNotFound("Задача с указанным id = " + task_id + " не найдена!")
-    users_task = []
-    for user in RunQuest.objects.filter(quest_id=task.id):
-        users_task.append\
-            ({
-                "id": user.person.id,
-                "first_name": user.person.first_name,
-                "last_name": user.person.last_name
-            })
-    return render(HttpRequest, "firstApp/details_about_the_task.html", {"task": task, "users_task": users_task})
-
-def upload_task(HttpRequest, task_id):
-    """Загрузить данные в форму для указанной задачи"""
-    task = Quest.objects.get(pk=task_id)
-    users_list = get_list(Person, "id", "first_name", "last_name")
-    users_task = []
-    users_not_task = []
-    for user in RunQuest.objects.filter(quest_id=task.id):
-        users_task.append\
-            ({
-                "id": user.person.id,
-                "first_name": user.person.first_name,
-                "last_name": user.person.last_name
-            })
-    users_not_task = [x for x in users_list if x not in users_task]
-    return render(HttpRequest, "firstApp/upload_task.html",
+        users = get_values(Person, "login", "first_name", "last_name")
+    except:
+        return HttpResponseServerError("Server error!")
+    return render(HttpRequest, "firstApp/users.html",
                   {
-                      "task": task,
-                      "users_not_task": users_not_task,
-                      "users_task": users_task
+                      "users": users
                   })
 
-def edit_task_id(HttpRequest, task_id):
-    """Обновить данные в БД для указанной задачи"""
-    Quest.objects.filter(pk=task_id).update\
-        (
-            id=HttpRequest.POST["id"],
-            title=HttpRequest.POST["title"],
-            text=HttpRequest.POST["text"],
-            status=HttpRequest.POST["status"]
-        )
-    return HttpResponseRedirect("/firstApp/tasks")
-
-def delete_the_task(HttpRequest, task_id):
-    """Удалить указанную задачу"""
-    task = Quest.objects.get(pk=task_id)
-    task.delete()
-    return HttpResponseRedirect("/firstApp/tasks")
-
-def users(HttpRequest):
-    """Отобразить список пользователей"""
-    user_list = get_list(Person, "id", "first_name", "last_name")
-    return render(HttpRequest, "firstApp/users.html", {"user_list": user_list})
-
-def details_about_the_user(HttpRequest, user_id):
+# Баги:
+# - Нет фото пользователя
+def about_user(HttpRequest, LoginUser):
     """Отобразить подробную информацию о пользователе"""
     try:
-        user = Person.objects.get(pk=user_id)
-    except Quest.DoesNotExist:
-        return HttpResponseNotFound("Пользователь с указанным id = " + user_id + " не найден!")
-    return render(HttpRequest, "firstApp/details_about_the_user.html", {"user": user})
+        user = Person.objects.filter(login=LoginUser).values\
+        (
+            "login", "first_name", "last_name", "email", "vk"
+        )[0]
+    except:
+        return HttpResponseServerError("Server error!")
+    return render(HttpRequest, "firstApp/about_user.html",
+                  {
+                      "user": user
+                  })
 
-def delete_user(HttpRequest, task_id, user_id):
-    """Удалить пользователя из задачи"""
+# Баги:
+# - Рефакторинг кода
+def edit_user(HttpRequest, LoginUser):
+    """Редактировать пользователя"""
+    if (HttpRequest.method == "POST"):
+        user = PersonForm(HttpRequest.POST)
+        if user.is_valid():
+            user_db = Person.objects.filter(login=LoginUser)
+            user_db.update\
+                (
+                    login=user.cleaned_data["login"],
+                    first_name=user.cleaned_data["first_name"],
+                    last_name=user.cleaned_data["last_name"],
+                    email=user.cleaned_data["email"],
+                    vk=user.cleaned_data["vk"],
+                    password=user.cleaned_data["password"]
+                )
+            return HttpResponseRedirect("/firstApp/")
+        else:
+            return HttpResponseBadRequest("Bad request!")
+    else:
+        try:
+            user = PersonForm(initial=Person.objects.filter(login=LoginUser).values()[0])
+        except:
+            return HttpResponseServerError("Server error!")
+        return render(HttpRequest, "firstApp/edit_user.html",
+                      {
+                          "user": user,
+                          "login": LoginUser
+                      })
+
+# Баги:
+# - Рефакторинг кода
+def tasks(HttpRequest):
+    """Отобразить список всех задач"""
     try:
-        task = Quest.objects.get(pk=task_id)
-    except Quest.DoesNotExist:
-        return HttpResponseNotFound("Задача с указанным id = " + task_id + " не найдена!")
-    user = RunQuest.objects.get(quest_id=task_id, person_id=user_id)
-    user.delete()
-    return render(HttpRequest, "firstApp/upload_task.html")
+        tasks = get_values(Quest, "id", "title", "date", "status")
+    except:
+        return HttpResponseServerError("Server error!")
+    return render(HttpRequest, "firstApp/tasks.html",
+                  {
+                      "tasks": tasks
+                  })
+# Баги:
+# - Рефакторинг кода
+def about_task(HttpRequest, TaskID):
+    """Отобразить подробную информацию о задаче"""
+    try:
+        task = Quest.objects.filter(pk=TaskID).values()[0]
+        run_quest_users = RunQuest.objects.filter(quest_id=TaskID).values()
+    except:
+        return HttpResponseNotFound("Not found!")
+    users = []
+    try:
+        for user in run_quest_users:
+            users.append(Person.objects.filter(id=user["person_id"]).values\
+                         ("login", "first_name", "last_name"))
+    except:
+        return HttpResponseServerError("Server error!")
+    return render(HttpRequest, "firstApp/about_task.html",
+                  {
+                      "task": task,
+                      "users": users
+                  })
+
+# Баги:
+# - Сделать безопасное удаление RunQuest.objects.filter(quest_id=TaskID).delete()
+# - Сделать безопасное сохранение new_run_quest.save()
+# - Реализовать наследование first_date от Quest
+# - Реализовать другой способ включения пользователей в проект new_run_quest = RunQuest
+# - Реализовать подсказку для Date(форматы, всп. меню)
+def edit_task(HttpRequest, TaskID):
+    """Редактировать задачу"""
+    if (HttpRequest.method == "POST"):
+        task = QuestForm(HttpRequest.POST)
+        if task.is_valid():
+            task_db = Quest.objects.filter(pk=TaskID)
+            task_db.update\
+                (
+                    title=task.cleaned_data["title"],
+                    text=task.cleaned_data["text"],
+                    date=task.cleaned_data["date"],
+                    status=task.cleaned_data["status"],
+                )
+            try:
+                RunQuest.objects.filter(quest_id=TaskID).delete()
+            except:
+                return HttpResponseNotModified("Not modified!")
+            try:
+                for user in task.cleaned_data["person"]:
+                    new_run_quest = RunQuest\
+                        (
+                            first_date=task.cleaned_data["date"],
+                            last_date=task.cleaned_data["date"],
+                            quest_id=TaskID,
+                            person_id=user.id
+                        )
+                    new_run_quest.save()
+            except:
+                return HttpResponseNotModified("Not modified!")
+            return HttpResponseRedirect("/firstApp/")
+        else:
+            return HttpResponseBadRequest("Bad request!")
+    else:
+        try:
+            task = QuestForm(initial=Quest.objects.filter(pk=TaskID).values()[0])
+        except:
+            return HttpResponseServerError("Server error!")
+        return render(HttpRequest, "firstApp/edit_task.html",
+                      {
+                          "task": task,
+                          "task_id": TaskID
+                      })

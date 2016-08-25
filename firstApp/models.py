@@ -11,12 +11,12 @@ from django.db import models
 # Create your models here
 # Пользователь
 class Person(models.Model):
-	first_name = models.CharField(max_length=255)
-	last_name = models.CharField(max_length=255)
-	email = models.CharField(max_length=255)
-	vk = models.EmailField(max_length=255)
-	login = models.CharField(max_length=255)
-	password = models.CharField(max_length=255)
+	first_name = models.CharField(max_length=50)
+	last_name = models.CharField(max_length=50)
+	email = models.EmailField(max_length=50)
+	vk = models.URLField(max_length=50)
+	login = models.CharField(max_length=50)
+	password = models.CharField(max_length=32)
 
 	def __str__(self):
 		return ' '.join([self.first_name, self.last_name,])
@@ -29,10 +29,10 @@ class SysJournal(models.Model):
 
 # Задача
 class Quest(models.Model):
-	title = models.CharField(max_length=255)
+	title = models.CharField(max_length=50)
 	text = models.TextField()
-	date = models.DateTimeField()
-	status = models.IntegerField(default=0)
+	date = models.DateField(auto_now=True)
+	status = models.IntegerField(default=3)
 	person = models.ManyToManyField(Person, through='RunQuest')
 
 	def __str__(self):
@@ -43,8 +43,8 @@ class RunQuest(models.Model):
 	person = models.ForeignKey(Person, null='true')
 	quest = models.ForeignKey(Quest, null='true')
 	comment = models.TextField()
-	first_date = models.DateTimeField()
-	last_date = models.DateTimeField()
+	first_date = models.DateField()
+	last_date = models.DateField()
 
 # Встреча
 class Meeting(models.Model):
@@ -53,7 +53,7 @@ class Meeting(models.Model):
 	text = models.TextField()
 	date = models.DateTimeField()
 	place = models.CharField(max_length=255)
-	plans = models.ManyToManyField(Quest, through='Plan')
+	quest = models.ManyToManyField(Quest, through='Plan')
 	persons = models.ManyToManyField(Person, through='Journal')
 
 	def __str__(self):
