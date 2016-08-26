@@ -236,7 +236,6 @@ def edit_task(HttpRequest, TaskID):
 
 # Баги:
 # - Рефакторинг кода
-# - Рефакторинг кода
 def delete_task(HttpRequest, TaskID):
     """Удалить задачу"""
     try:
