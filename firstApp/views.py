@@ -12,15 +12,6 @@ from django.http import *
 from django.shortcuts import *
 
 # Create your views here
-# Вспомогательные функции
-def get_values(model, *args):
-    """Загрузить список записей"""
-    records_db = model.objects.values(*args)
-    records = []
-    for current_record in records_db:
-        records.append(current_record)
-    return records
-
 def index(HttpRequest):
     """Отобразить стартовую страницу"""
     return render(HttpRequest, "firstApp/index.html")
@@ -40,6 +31,7 @@ def users(HttpRequest):
 
 # Баги:
 # - Нет фото пользователя
+# - Рефакторинг кода
 def about_user(HttpRequest, LoginUser):
     """Отобразить подробную информацию о пользователе"""
     try:
@@ -150,6 +142,7 @@ def about_task(HttpRequest, TaskID):
 # - Реализовать наследование first_date от Quest
 # - Реализовать другой способ включения пользователей в проект new_run_quest_user = RunQuest
 # - Реализовать подсказку для Date(форматы, всп. меню)
+# - Рефакторинг кода
 def add_task(HttpRequest):
     """Редактировать задачу"""
     if (HttpRequest.method == "POST"):
@@ -197,6 +190,7 @@ def add_task(HttpRequest):
 # - Реализовать наследование first_date от Quest
 # - Реализовать другой способ включения пользователей в проект new_run_quest = RunQuest
 # - Реализовать подсказку для Date(форматы, всп. меню)
+# - Рефакторинг кода
 def edit_task(HttpRequest, TaskID):
     """Редактировать задачу"""
     if (HttpRequest.method == "POST"):
@@ -241,6 +235,7 @@ def edit_task(HttpRequest, TaskID):
                       })
 
 # Баги:
+# - Рефакторинг кода
 # - Рефакторинг кода
 def delete_task(HttpRequest, TaskID):
     """Удалить задачу"""
