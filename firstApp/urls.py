@@ -18,7 +18,10 @@ urlpatterns = \
         url(r'^users/$', views.users, name='users'),
         url(r'^users/(?P<LoginUser>[^/]+)/$', views.about_user, name='about_user'),
         url(r'^users/(?P<LoginUser>[^/]+)/edit/$', views.edit_user, name='edit_user'),
+        url(r'^users/(?P<LoginUser>[^/]+)/tasks$', views.tasks_user, name='tasks_user'),
         url(r'^tasks/$', views.tasks, name='tasks'),
         url(r'^tasks/(?P<TaskID>[0-9]+)/$', views.about_task, name='about_task'),
+        url(r'^tasks/add$', views.add_task, name='add_task'),
         url(r'^tasks/(?P<TaskID>[0-9]+)/edit$', views.edit_task, name='edit_task'),
+        url(r'^tasks/(?P<TaskID>[0-9]+)/delete$', views.delete_task, name='delete_task'),
     ]

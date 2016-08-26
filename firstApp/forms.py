@@ -83,5 +83,5 @@ class QuestForm(forms.Form):
     person = forms.ModelMultipleChoiceField\
         (
             queryset=Person.objects.all(),
-            required = False
+            required=False
         )
