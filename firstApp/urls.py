@@ -24,4 +24,9 @@ urlpatterns = \
         url(r'^tasks/add$', views.add_task, name='add_task'),
         url(r'^tasks/(?P<TaskID>[0-9]+)/edit$', views.edit_task, name='edit_task'),
         url(r'^tasks/(?P<TaskID>[0-9]+)/delete$', views.delete_task, name='delete_task'),
+        url(r'^meetings/$', views.meetings, name='meetings'),
+        url(r'^meeting/(?P<meeting_id>[0-9]+)/$', views.meeting_info, name='meeting_info'),
+        url(r'^meeting_add/$', views.meeting_add, name='meeting_add'),
+        url(r'^meeting_edit/(?P<meeting_id>[0-9]+)/$', views.meeting_edit, name='meeting_edit'),
+        url(r'^meeting_delete/(?P<meeting_id>[0-9]+)/$', views.meeting_delete, name='meeting_delete'),
     ]

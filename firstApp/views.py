@@ -247,3 +247,79 @@ def delete_task(HttpRequest, TaskID):
     except:
         return HttpResponseNotModified("Not modified!")
     return HttpResponseRedirect("/firstApp/")
+
+def meetings(HttpRequest):
+    m = get_list(Meeting, "id", "date")
+    args = {}
+    args['meetings'] = m
+    return render(HttpRequest, "firstApp/meetings.html", args)
+
+def meeting_add(HttpRequest):
+    if HttpRequest.method == "POST":
+        form = MeetingForm(HttpRequest.POST)
+        if form.is_valid():
+            m = Meeting(title=form.cleaned_data['title'], target=form.cleaned_data['target'], text=form.cleaned_data['text'], date=form.cleaned_data['date'], place=form.cleaned_data['place'])
+            m.save()
+
+            for q in HttpRequest.POST.getlist('quest'):
+                p = Plan(meeting=m, quest_id=q)
+                p.save()
+                quest = Quest.objects.get(pk=q)
+                for p in quest.person.all():
+                    j = Journal(meeting=m, person_id=p.id)
+                    j.save()
+
+            '''
+            for p in HttpRequest.POST.getlist('person'):
+                j = Journal(meeting=m, person_id=p)
+                j.save()
+            '''
+            return redirect("/firstApp/meeting/{0}/".format(m.id))
+    else:
+        form = MeetingForm()
+        return render(HttpRequest, "firstApp/meeting_add.html", { 'form': form })
+
+def meeting_edit(HttpRequest, meeting_id):
+    if HttpRequest.method == "POST":
+        form = MeetingForm(HttpRequest.POST)
+        if form.is_valid():
+
+            m = Meeting.objects.get(pk=meeting_id)
+            m.title=form.cleaned_data['title']
+            m.target=form.cleaned_data['target']
+            m.text=form.cleaned_data['text']
+            m.date=form.cleaned_data['date']
+            m.place=form.cleaned_data['place']
+            m.save() 
+
+            Plan.objects.filter(meeting_id=meeting_id).delete()
+            Journal.objects.filter(meeting_id=meeting_id).delete()
+
+            for q in HttpRequest.POST.getlist('quest'):
+                p = Plan(meeting=m, quest_id=q)
+                p.save()
+                quest = Quest.objects.get(pk=q)
+                for p in quest.person.all():
+                    j = Journal(meeting=m, person_id=p.id)
+                    j.save()
+            
+            return redirect("/firstApp/meeting/{0}/".format(m.id))
+    else:
+        m = Meeting.objects.get(pk=meeting_id)
+        form = MeetingForm(initial={'title': m.title, 'target': m.target, 'text': m.text, 'date': m.date, 'place': m.place}, instance=m)
+        return render(HttpRequest, "firstApp/meeting_edit.html", { 'form': form })
+
+def meeting_info(HttpRequest, meeting_id):
+    m = Meeting.objects.get(id=meeting_id)
+    args = {}
+    args['meeting'] = m
+    args['quest'] = m.quest.values()
+    args['person'] = m.person.values()
+    return render(HttpRequest, "firstApp/meeting_info.html", args)   
+
+def meeting_delete(HttpRequest, meeting_id):
+    Plan.objects.filter(meeting_id=meeting_id).delete()
+    Journal.objects.filter(meeting_id=meeting_id).delete()
+    Meeting.objects.get(id=meeting_id).delete()
+
+    return redirect("/firstApp/meetings/") 

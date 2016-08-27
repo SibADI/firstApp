@@ -54,7 +54,7 @@ class Meeting(models.Model):
 	date = models.DateTimeField()
 	place = models.CharField(max_length=255)
 	quest = models.ManyToManyField(Quest, through='Plan')
-	persons = models.ManyToManyField(Person, through='Journal')
+	person = models.ManyToManyField(Person, through='Journal')
 
 	def __str__(self):
 		return self.title
