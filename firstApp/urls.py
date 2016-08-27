@@ -22,5 +22,8 @@ urlpatterns = [
     url(r'^users/$', views.users, name='users'),
     url(r'^users/(?P<user_id>[0-9]+)/$', views.details_about_the_user, name='details_about_the_user'),
     url(r'^meetings/$', views.meetings, name='meetings'),
-    url(r'^meetings/(?P<meeting_id>[0-9]+)/$', views.meeting_info, name='meeting_info'),
+    url(r'^meeting/(?P<meeting_id>[0-9]+)/$', views.meeting_info, name='meeting_info'),
+    url(r'^meeting_add/$', views.meeting_add, name='meeting_add'),
+    url(r'^meeting_edit/(?P<meeting_id>[0-9]+)/$', views.meeting_edit, name='meeting_edit'),
+    url(r'^meeting_delete/(?P<meeting_id>[0-9]+)/$', views.meeting_delete, name='meeting_delete'),
 ]

@@ -1,26 +1,43 @@
-{% extends 'firstApp/base.html' %}
+{{meeting.title}}
 
-{% block Content %}
-    <table class="table meetingtable_h">
+    <table class="table questtable_h">
        <tr>
-            <td class="t_id">ID</td>
-            <td class="t_title">Встреча</td>
-            <td class="t_text">Текст</td>
-            <td class="t_date">Дата</td>
-            <td class="t_place">Место</td>
-            <td class="t_plans">План</td>
-            <td class="t_persons">Пользователи</td>
+            <td class="t_title">Задачи:</td>
        </tr>
     </table>
-    {% for m in meetings %}
-        <table class="table meetingtable">
+    {% for q in quest %}
+        <table class="table questtable">
             <tr>
-                <td class="t_id">{{ m.id }}</td>
-                <td class="t_title">{{ m.title }}</td>
-                <td class="t_text">{{ m.text }}</td>
-                <td class="t_date">{{ m.date }}</td>
-                <td class="t_place">{{ m.place }}</td>
+                <td class="t_title">{{q.title}}</td>
             </tr>
         </table>
         {% endfor %}
-{% endblock %}
+
+    <table class="table persontable_h">
+       <tr>
+            <td class="t_first_name">Имя</td>
+            <td class="t_last_name">Фамилия</td>
+       </tr>
+    </table>
+    {% for p in person %}
+        <table class="table persontable">
+            <tr>
+                <td class="t_first_name">{{p.first_name}}</td>
+                <td class="t_last_name">{{p.last_name}}</td>
+            </tr>
+        </table>
+        {% endfor %}
+
+
+<table>
+    <tr>
+        <form action="/firstApp/meeting_edit/{{meeting.id}}/">
+            <button type="submit">Редактировать</button>
+        </form>
+    </tr>
+    <tr>
+        <form action="/firstApp/meeting_delete/{{meeting.id}}/">
+            <button type="submit">Удалить</button>
+        </form>
+    </tr>
+</table>
