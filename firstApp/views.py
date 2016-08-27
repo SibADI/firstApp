@@ -11,6 +11,14 @@ from .models import *
 from django.http import *
 from django.shortcuts import *
 
+def get_list(model, *field):
+    """Загрузить список записей из БД"""
+    records_from_db = model.objects.values(*field)
+    records = []
+    for current_record in records_from_db:
+        records.append(current_record)
+    return records
+
 # Create your views here
 def index(HttpRequest):
     """Отобразить стартовую страницу"""
