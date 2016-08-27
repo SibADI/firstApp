@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+</head>
+<body>
+    <form method="post" action="{% url 'firstApp:edit_user' login %}">
+        {% csrf_token %}
+        {{ user }}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
