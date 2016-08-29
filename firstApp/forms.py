@@ -8,6 +8,7 @@
 # import lib
 from .models import *
 from django import forms
+from django.forms.widgets import SelectDateWidget
 from django.forms import ModelForm
 
 class PersonForm(forms.Form):
@@ -71,6 +72,7 @@ class QuestForm(forms.Form):
         )
     date = forms.DateField\
         (
+            widget=SelectDateWidget,
             label="Дата создания задачи:",
             input_formats=['%Y-%m-%d'],
             required=True
