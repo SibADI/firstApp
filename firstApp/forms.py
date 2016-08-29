@@ -9,6 +9,7 @@
 from .models import *
 from django import forms
 from django.forms.widgets import SelectDateWidget
+from django.forms import ModelForm
 
 class PersonForm(forms.Form):
     login = forms.CharField\
@@ -87,3 +88,10 @@ class QuestForm(forms.Form):
             queryset=Person.objects.all(),
             required=False
         )
+
+
+class MeetingForm(ModelForm):
+	class Meta:
+		model = Meeting
+		fields = ('title', 'target', 'text', 'date', 'place', 'quest')
+		#fields = "__all__"

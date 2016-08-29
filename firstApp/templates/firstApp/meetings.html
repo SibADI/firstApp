@@ -1,0 +1,26 @@
+
+
+{% block Content %}
+    <table class="table meetingtable_h">
+       <tr>
+            <td class="t_id">ID</td>
+            <td class="t_title">Встреча</td>
+            <td class="t_text">Текст</td>
+            <td class="t_date">Дата</td>
+            <td class="t_place">Место</td>
+            <td class="t_plans">План</td>
+            <td class="t_persons">Пользователи</td>
+       </tr>
+    </table>
+    {% for m in meetings %}
+        <table class="table meetingtable">
+            <tr>
+                <td class="t_id">{{ m.id }}</td>
+                <td class="t_title">{{ m.title }}</td>
+                <td class="t_text">{{ m.text }}</td>
+                <td class="t_date">{{ m.date }}</td>
+                <td class="t_place">{{ m.place }}</td>
+            </tr>
+        </table>
+        {% endfor %}
+{% endblock %}
