@@ -1,11 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Задача</title>
-</head>
-<body>
-    {{ task }}
-    {{ users }}
-</body>
-</html>
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+{% block title %}. Пользователи {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/table.css' %} ">
+{% endblock %}
+
+{% block Content %}
+
+    <p><label>Задача: </label>{{ task.title }}</p>
+    <p><label>Дата постановки: </label>{{ task.date }}</p>
+    <p><label>Описание: </label>{{ task.text }}</p>
+    <p><label>Статус: </label>{{ task.status }}</p>
+    <p><label>Исполнитель: </label>{{ users }}</p>
+
+
+{% endblock %}

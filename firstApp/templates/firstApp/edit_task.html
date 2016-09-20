@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Редактирование задачи</title>
-</head>
-<body>
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+ {% block title %}. Редактирование пользователя{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/edit_task.css' %} ">
+{% endblock %}
+
+{% block Content %}
+
     <form method="post" action="{% url 'firstApp:edit_task' task_id %}">
         {% csrf_token %}
-        {{ task }}
+        {{ task.as_p }}
         <input type="submit" value="Submit">
     </form>
-</body>
-</html>
+
+{% endblock %}

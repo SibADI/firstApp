@@ -1,5 +1,17 @@
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+ {% block title %}. Редактирование пользователя{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/meetings_edit.css' %} ">
+{% endblock %}
+
+{% block Content %}
 
     <form method="POST">{% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save</button>
     </form>
+
+{% endblock %}

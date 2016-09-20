@@ -65,21 +65,20 @@ class QuestForm(forms.Form):
         )
     text = forms.CharField\
         (
-            widget=forms.Textarea,
+            widget=forms.Textarea(attrs={"class":"t_area"}),
             label="Описание задачи:",
             max_length=255,
             required=False
         )
     date = forms.DateField\
         (
-            widget=SelectDateWidget,
             label="Дата создания задачи:",
             input_formats=['%Y-%m-%d'],
             required=True
         )
     status = forms.ChoiceField\
         (
-            widget=forms.RadioSelect,
+
             choices=STATUS,
             required=True
         )

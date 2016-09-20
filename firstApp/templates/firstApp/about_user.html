@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Пользователь</title>
-</head>
-<body>
-    {{ user }}
-</body>
-</html>
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+{% block title %}. Пользователь {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/table.css' %} ">
+{% endblock %}
+
+{% block Content %}
+
+    <p><label>Логин: </label>{{ user.login }}</p>
+    <p><label>Имя: </label>{{ user.first_name }}</p>
+    <p><label>Фамилия: </label>{{ user.last_name }}</p>
+    <p><label>e-mail: </label>{{ user.email }}</p>
+    <p><label>vk: </label>{{ user.vk }}</p>
+
+
+{% endblock %}
