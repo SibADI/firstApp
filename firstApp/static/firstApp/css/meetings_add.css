@@ -1,0 +1,14 @@
+[id^=id_]{
+    display: inline-block;
+    width: 300px;
+}
+p > label {
+    text-align: left;
+    width: 150px;
+    height: 25px;
+    margin: 3px;
+}
+p > input{
+    width: 300px;
+    height: 25px;
+}

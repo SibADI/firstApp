@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Добавление задачи</title>
-</head>
-<body>
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+{% block title %}. Новая задача {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/add_task.css' %} ">
+{% endblock %}
+
+{% block Content %}
+
     <form method="post" action="{% url 'firstApp:add_task' %}">
         {% csrf_token %}
-        {{ task }}
+        {{ task.as_p }}
         <input type="submit" value="Submit">
-</body>
-</html>
+    </form>
+
+{% endblock %}

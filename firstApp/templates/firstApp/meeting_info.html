@@ -1,19 +1,30 @@
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+ {% block title %}. Meeting_info {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/table.css' %} ">
+{% endblock %}
+
+{% block Content %}
+
 {{meeting.title}}
 
-    <table class="table questtable_h">
+    <table class="table table_h">
        <tr>
             <td class="t_title">Задачи:</td>
        </tr>
     </table>
     {% for q in quest %}
-        <table class="table questtable">
+        <table class="table ttable">
             <tr>
                 <td class="t_title">{{q.title}}</td>
             </tr>
         </table>
         {% endfor %}
 
-    <table class="table persontable_h">
+    <table class="table table_h">
        <tr>
             <td class="t_first_name">Имя</td>
             <td class="t_last_name">Фамилия</td>
@@ -41,3 +52,5 @@
         </form>
     </tr>
 </table>
+
+{% endblock %}

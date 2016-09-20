@@ -1,7 +1,15 @@
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+ {% block title %}. Meetings {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/table.css' %} ">
+{% endblock %}
 
 
 {% block Content %}
-    <table class="table meetingtable_h">
+    <table class="table table_h">
        <tr>
             <td class="t_id">ID</td>
             <td class="t_title">Встреча</td>
@@ -13,7 +21,7 @@
        </tr>
     </table>
     {% for m in meetings %}
-        <table class="table meetingtable">
+        <table class="table table">
             <tr>
                 <td class="t_id">{{ m.id }}</td>
                 <td class="t_title">{{ m.title }}</td>

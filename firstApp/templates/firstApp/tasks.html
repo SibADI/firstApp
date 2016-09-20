@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Задачи</title>
-</head>
-<body>
-    {{ tasks }}
-</body>
-</html>
+{% extends "firstApp/base.html" %}
+{% load static %}
+
+ {% block title %}. Задачи {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstApp/css/table.css' %} ">
+{% endblock %}
+
+{% block Content %}
+
+    <table class="table table_h">
+       <tr>
+            <td class="t_title">Задача</td>
+            <td class="t_date">Дата</td>
+            <td class="t_status">Статус</td>
+       </tr>
+    </table>
+
+   {% for task in tasks %}
+
+        <table class="table table">
+
+            <tr>
+                <td class="t_title">
+                    <div class="d_title"><a class="a_title" href = "{% url 'firstApp:about_task' task.id %}">{{ task.title }}</a>
+                        <div class="d_title_drop">
+                            <div class="taskbutton"><a href = "{% url 'firstApp:edit_task' task.id %}">Редактировать</a></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="t_date">{{ task.date }}</td>
+                <td class="t_status">{{ task.status }}</td>
+            </tr>
+
+        </table>
+
+        {% endfor %}
+
+{% endblock %}
+
