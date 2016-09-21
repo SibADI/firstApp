@@ -72,6 +72,7 @@ class QuestForm(forms.Form):
         )
     date = forms.DateField\
         (
+            widget=forms.SelectDateWidget(),
             label="Дата создания задачи:",
             input_formats=['%Y-%m-%d'],
             required=True
